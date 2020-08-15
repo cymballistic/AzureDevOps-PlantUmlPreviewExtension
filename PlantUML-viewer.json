@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "plantuml-viewer",
-    "version": "0.0.6",
+    "version": "0.0.15",
     "name": "PlantUML viewer",
     "description": "PlantUML viewer",
     "publisher": "shtormtech",
@@ -54,7 +54,7 @@
         }
     ],
     "icons": {
-        "default": "icon.png"
+        "default": "img/icon.png"
     },
     "scopes": [
         "vso.code",
@@ -92,9 +92,21 @@
             "addressable": true
         },
         {
+            "path": "img",
+            "addressable": true
+        },
+        {
             "path": "node_modules/vss-web-extension-sdk/lib", 
             "addressable": true,
             "packagePath": "lib"
+        }
+    ],
+    "screenshots": [
+        {
+            "path": "img/screen2.png"
+        },
+        {
+            "path": "img/screen1.png"
         }
     ]
 }

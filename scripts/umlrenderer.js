@@ -4,13 +4,18 @@ var umlRenderer = (function () {
         renderContent: function(rawContent, options) {
 
             try 
-            {
+            {                 
                 VSS.require(["TFS/ServiceEndpoint/ServiceEndpointRestClient"], function(serviceEndpointService){
-                    console.log(serviceEndpointService.getClient())
-                    serviceEndpointService.getClient().getServiceEndpoints(VSS.getWebContext().project.name,'plantuml')
+                    serviceEndpointService.getClient().getServiceEndpoints(VSS.getWebContext().project.name, 'plantuml')
                         .then((result) => {
-                            let plant_uml_server = result[0].url
-
+                            
+                            return result[0].url
+                        })
+                        .catch((err) => {
+                            console.warn(`fail get PlantUML server with service connection: ${err}`)
+                            return 'https://www.plantuml.com/plantuml'
+                        })
+                        .then((plant_uml_server) => {
                             let diagramUrl = plant_uml_server+compress(rawContent)
                             fetch(diagramUrl)
                             .then((res3) => {
@@ -27,12 +32,8 @@ var umlRenderer = (function () {
                             }) 
                             console.log('resultURL: ' + diagramUrl)
                         })
-                        document.getElementById("container").innerHTML = 'Не удалось получить адрес сервера PlantUML.'
-                        .catch((err) => {console.error(err)})     
-                        document.getElementById("spinner").style.display = "none"
-                })          
-                
-            }
+                }) 
+             }
             catch (err)
             {
                 console.log(err)
